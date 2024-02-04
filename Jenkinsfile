@@ -15,7 +15,7 @@ pipeline {
         stage('Build') { 
             steps { 
                 script{
-                 app = docker.build("https://github.com/OctopusSamples/octopus-underwater-app.git")
+                 app = docker.build("octopus-underwater-app")
                 }
             }
         }
