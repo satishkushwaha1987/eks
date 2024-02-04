@@ -30,19 +30,9 @@ pipeline {
                  echo 'Empty'
             }
         }
-        // stage('Logging into AWS ECR') {
-        //     steps {
-        //         script {
-        //            sh """aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"""
-        //         }
-                 
-        //     }
-        // }
         stage('Push') {
             steps {
                 script{
-                    // sh """docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"""
-                    // sh """docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"""
                         docker.withRegistry('https://637423367548.dkr.ecr.us-east-1.amazonaws.com/octopus-underwater-app', 'ecr:us-east-1:aws-credentials') {
                     app.push("${env.BUILD_NUMBER}")
                     app.push("latest")
@@ -51,8 +41,8 @@ pipeline {
             }
         }
         stage('Deploy'){
-            steps {
-                 sh """kubectl apply -f deployment.yml"""
+            withKubeConfig([credentialsId: 'aws-credentials', serverUrl: 'https://BDD30E2C70C3036174549036886A844E.gr7.us-east-1.eks.amazonaws.com']) {
+            sh 'kubectl apply -f deployment.yml'
             }
         }
 
