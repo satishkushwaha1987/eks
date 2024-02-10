@@ -42,7 +42,7 @@ pipeline {
         }
         stage('Deploy'){
             steps {
-                withKubeConfig([credentialsId: 'aws-credentials', serverUrl: 'https://BDD30E2C70C3036174549036886A844E.gr7.us-east-1.eks.amazonaws.com']) {
+#                withKubeConfig([credentialsId: 'aws-credentials', serverUrl: 'https://']) {
                 sh 'kubectl apply -f deployment.yml'
                 }
             }
