@@ -21,7 +21,7 @@ pipeline {
         stage('Build') { 
             steps { 
                 stage("Build") {
-                    sh 'docker build . -t sushantkapare1717/node-todo-list:latest'
+                    sh 'docker build . -t "docker-2048"'
             }
         }
         stage('Test'){
@@ -39,11 +39,11 @@ pipeline {
                 }
             }
         }
-        stage('Deploy'){
-            steps {
-                sh 'kubectl apply -f deployment.yml'
-            }
-        }
+        // stage('Deploy'){
+        //     steps {
+        //         sh 'kubectl apply -f deployment.yml'
+        //     }
+        // }
     }
 
 }
