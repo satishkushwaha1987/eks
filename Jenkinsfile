@@ -20,9 +20,8 @@ pipeline {
         }
         stage('Build') { 
             steps { 
-                script{
-                 app = docker.build("octopus-underwater-app")
-                }
+                stage("Build") {
+                    sh 'docker build . -t sushantkapare1717/node-todo-list:latest'
             }
         }
         stage('Test'){
