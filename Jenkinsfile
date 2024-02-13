@@ -13,15 +13,14 @@ pipeline {
     stages {
          stage('Clone repository') { 
             steps { 
-                script{
-                checkout scm
+                git url: 'https://github.com/satishkushwaha1987/eks.git', branch: 'main'
                 }
-            }
         }
+        
         stage('Build') { 
             steps { 
                 stage("Build") {
-                    sh 'docker build . -t "docker-2048"'
+                    sh 'docker build . -t docker-2048:latest'
                 }
             }
         }
