@@ -19,11 +19,9 @@ pipeline {
         
         stage('Build') { 
             steps { 
-                stage("Build") {
-                    sh 'docker build . -t docker-2048:latest'
+                    sh 'docker build -t docker-2048:latest .'
                 }
             }
-        }
         stage('Test'){
             steps {
                  echo 'Empty'
