@@ -22,6 +22,7 @@ pipeline {
             steps { 
                 stage("Build") {
                     sh 'docker build . -t "docker-2048"'
+                }
             }
         }
         stage('Test'){
