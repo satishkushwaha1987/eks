@@ -7,7 +7,7 @@ pipeline {
     AWS_ACCOUNT_ID="637423367548"
     AWS_DEFAULT_REGION="us-east-1"
     IMAGE_REPO_NAME="octopus-underwater-app"
-    IMAGE_TAG="v1"
+    IMAGE_TAG="latest"
     REPOSITORY_URI = "637423367548.dkr.ecr.us-east-1.amazonaws.com/octopus-underwater-app"
   }
     stages {
@@ -31,8 +31,8 @@ pipeline {
             steps {
                 script{
                         docker.withRegistry('https://637423367548.dkr.ecr.us-east-1.amazonaws.com/octopus-underwater-app', 'ecr:us-east-1:aws-credentials') {
-                    app.push("${env.BUILD_NUMBER}")
-                    app.push("latest")
+                            sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
+                            sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
                     }
                 }
             }
